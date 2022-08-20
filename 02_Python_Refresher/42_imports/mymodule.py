@@ -1,6 +1,5 @@
-# from imports_code import divide
+# import imports_code
 
-import imports_code
+from imports_code import divide
 
 print(divide(10, 2))
-
