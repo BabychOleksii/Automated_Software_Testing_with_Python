@@ -20,7 +20,7 @@ class BaseTest(TestCase):
             db.create_all()
         # Get a test client
         self.app = app.test_client()
-        self.app_context = app.app_context()
+        self.app_context = app.app_context
 
     def tearDown(self):
         # Database is blank
