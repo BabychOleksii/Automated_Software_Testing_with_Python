@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose123'
 api = Api(app)
 
-jwt = JWT(app, authenticate, identity)
+jwt = JWT(app, authenticate, identity)    # /auth
 
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
@@ -26,6 +26,10 @@ api.add_resource(ItemList, '/items')
 api.add_resource(StoreList, '/stores')
 
 api.add_resource(UserRegister, '/register')
+
+@app.errorhandler(JWTError)
+def auth_error_handler(err):
+    return jsonify({'message': 'Could not authorize. Did you include a valid Authorization header?'}), 401
 
 
 if __name__ == '__main__':
@@ -39,9 +43,3 @@ if __name__ == '__main__':
             db.create_all()
 
     app.run(port=5000)
-
-
-@app.errorhandler(JWTError)
-def auth_error_handler(err):
-    return jsonify({'message': 'Could not authorize. Did you include a valid Authorization header?'}), 401
-
