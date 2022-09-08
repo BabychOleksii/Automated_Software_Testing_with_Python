@@ -12,10 +12,11 @@ from resources.user import UserRegister
 app = Flask(__name__)
 
 app.config['DEBUG'] = True
+app.config["PROPAGATE_EXCEPTIONS"] = True
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['JWT_SECRET_KEY'] = 'secret_key'
+# app.config['SECRET_KEY'] = 'super-secret'
 app.secret_key = 'jose123'
 api = Api(app)
 
@@ -27,6 +28,7 @@ api.add_resource(ItemList, '/items')
 api.add_resource(StoreList, '/stores')
 
 api.add_resource(UserRegister, '/register')
+
 
 @app.errorhandler(JWTError)
 def auth_error_handler(err):

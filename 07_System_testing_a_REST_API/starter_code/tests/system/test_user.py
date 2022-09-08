@@ -34,6 +34,3 @@ class UserTest(BaseTest):
                 self.assertDictEqual({'message': 'A user with that username already exists'},
                                      json.loads(response.data))
 
-
-
-
